@@ -16,7 +16,7 @@ namespace ui
 		BackgroundActive(0xFFFFFF_rgb .WithAlpha(0xFF)),
 		BackgroundDisabled(0x0A0A0A_rgb .WithAlpha(0xFF)),
 
-		TextHover(0xFFFFFF_rgb .WithAlpha(0xFF)),
+		TextHover(0xEEEEEE_rgb .WithAlpha(0xFF)),
 		TextInactive(0xFFFFFF_rgb .WithAlpha(0xFF)),
 		TextActive(0x000000_rgb .WithAlpha(0xFF)),
 		TextDisabled(0x646464_rgb .WithAlpha(0xFF)),
