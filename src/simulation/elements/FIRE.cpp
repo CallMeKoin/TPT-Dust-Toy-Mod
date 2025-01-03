@@ -172,13 +172,13 @@ int Element_FIRE_update(UPDATE_FUNC_ARGS)
 					continue;
 				}
 
-				if ((rt==PT_COAL) || (rt==PT_BCOL))
+				if ((rt==PT_COAL) || (rt==PT_BCOL) || (rt==PT_GRPH))
 				{
 					if ((t==PT_FIRE || t==PT_PLSM))
 					{
 						if (parts[ID(r)].life>100 && sim->rng.chance(1, 500))
 						{
-							parts[ID(r)].life = 99;
+							parts[ID(r)].life -= 5;
 						}
 					}
 					else if (t==PT_LAVA)
