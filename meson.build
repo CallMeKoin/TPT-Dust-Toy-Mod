@@ -1,4 +1,4 @@
-project('the-powder-toy', 'cpp', version: 'the.cake.is.a.lie', meson_version: '>=0.64.0')
+project('TPT-Dust-Mod', 'cpp', version: 'the.cake.is.a.lie', meson_version: '>=0.64.0')
 
 if get_option('prepare')
 	# we're being run by prepare.py in a ghactions workflow only to determine the values of options; exit early
