@@ -178,7 +178,10 @@ int Element_FIRE_update(UPDATE_FUNC_ARGS)
 					{
 						if (parts[ID(r)].life>100 && sim->rng.chance(1, 500))
 						{
-							parts[ID(r)].life -= 5;
+							if(rt!=PT_GRPH && parts[ID(r)].life > 99)
+							parts[ID(r)].life = 99;
+							else if (parts[ID(r)].life > 999)
+							parts[ID(r)].life = 999;
 						}
 					}
 					else if (t==PT_LAVA)

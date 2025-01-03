@@ -2,10 +2,10 @@
 
 static int update(UPDATE_FUNC_ARGS);
 
-void Element::Element_IRON()
+void Element::Element_STEL()
 {
-	Identifier = "DEFAULT_PT_IRON";
-	Name = "IRON";
+	Identifier = "DEFAULT_DT_STEL";
+	Name = "STEL";
 	Colour = 0x707070_rgb;
 	MenuVisible = 1;
 	MenuSection = SC_SOLIDS;
@@ -24,12 +24,12 @@ void Element::Element_IRON()
 	Flammable = 0;
 	Explosive = 0;
 	Meltable = 1;
-	Hardness = 50;
+	Hardness = 75;
 
 	Weight = 100;
 
 	HeatConduct = 251;
-	Description = "Rusts with salt, can be used for electrolysis of WATR.";
+	Description = "Steel, doesn't rust as easily as iron.";
 
 	Properties = TYPE_SOLID|PROP_CONDUCTS|PROP_LIFE_DEC|PROP_HOT_GLOW;
 
@@ -39,7 +39,7 @@ void Element::Element_IRON()
 	HighPressureTransition = NT;
 	LowTemperature = ITL;
 	LowTemperatureTransition = NT;
-	HighTemperature = 1538.0f;
+	HighTemperature = 1370.0f;
 	HighTemperatureTransition = PT_LAVA;
 
 	Update = &update;
@@ -60,22 +60,19 @@ static int update(UPDATE_FUNC_ARGS)
 				{
 				case PT_SALT:
 					if (sim->rng.chance(1, 47))
-						goto succ;
+						sim->part_change_type(i,x,y,PT_BMTL);
+	                    parts[i].tmp = sim->rng.between(20, 29);
 					break;
 				case PT_SLTW:
 					if (sim->rng.chance(1, 67))
-						goto succ;
+						sim->part_change_type(i,x,y,PT_BMTL);
+	                    parts[i].tmp = sim->rng.between(20, 29);
 					break;
-				case PT_WATR:
-					if (sim->rng.chance(1, 1200))
-						goto succ;
-					break;
-				case PT_O2:
-					if (sim->rng.chance(1, 250))
-						goto succ;
-					break;
-				case PT_LO2:
-					goto succ;
+                case PT_ACID:
+                    if (sim->rng.chance(1,3))
+						sim->part_change_type(i,x,y,PT_BMTL);
+	                    parts[i].tmp = sim->rng.between(20, 29);
+                    break;
 				default:
 					break;
 				}
@@ -83,8 +80,5 @@ static int update(UPDATE_FUNC_ARGS)
 		}
 	}
 	return 0;
-succ:
-	sim->part_change_type(i,x,y,PT_BMTL);
-	parts[i].tmp = sim->rng.between(20, 29);
 	return 0;
 }

@@ -54,14 +54,52 @@ void Element::Element_GRPH()
 
 int Element_GRPH_update(UPDATE_FUNC_ARGS)
 {
+    for(int ry = -1; ry <= 1; ry++)
+    {
+        for(int rx = -1; rx <= 1; rx++)
+        {
+           if (rx || ry)
+			{
+				auto r = pmap[y+ry][x+rx];
+				switch (TYP(r))
+				{
+				case PT_NEUT:
+					//sim->part_change_type(ID(pmap[y+ry][x+rx]),x+rx,y+ry);
+                    sim->kill_part(ID(pmap[y+ry][x+rx]));
+					break;
+                case PT_IRON:
+                {
+                    if(parts[i].temp >= 1600 && parts[ID(pmap[y+ry][x+rx])].temp >= 1500)
+                    {
+                        sim->kill_part(ID(pmap[y+ry][x+rx]));
+                        sim->create_part(i, x, y, PT_STEL);
+		                return 1;
+                    }
+                }
+				default:
+					break;
+				}
+			}
+        }
+    }
 	if (parts[i].life<=0) {
 		sim->create_part(i, x, y, PT_FIRE);
 		return 1;
 	} else if (parts[i].life < 1000) {
 		parts[i].life--;
-		sim->create_part(-1, x + sim->rng.between(-3, 3), y + sim->rng.between(-2, 2), PT_FIRE);
-        sim->create_part(-1, x + sim->rng.between(-3, 3), y + sim->rng.between(-2, 2), PT_FIRE);
-        sim->create_part(-1, x + sim->rng.between(-3, 3), y + sim->rng.between(-2, 2), PT_FIRE);
+		sim->create_part(-1, x + sim->rng.between(-3, 3), y + sim->rng.between(-3, 3), PT_FIRE);
+        sim->create_part(-1, x + sim->rng.between(-3, 3), y + sim->rng.between(-3, 3), PT_FIRE);
+        sim->create_part(-1, x + sim->rng.between(-3, 3), y + sim->rng.between(-3, 3), PT_FIRE);
+        if(sim->rng.chance(1, 3))
+        {
+            sim->create_part(-1, x + sim->rng.between(-3, 3), y + sim->rng.between(-3, 3), PT_FIRE);
+            sim->create_part(-1, x + sim->rng.between(-3, 3), y + sim->rng.between(-3, 3), PT_FIRE);
+            sim->create_part(-1, x + sim->rng.between(-3, 3), y + sim->rng.between(-3, 3), PT_FIRE);
+            sim->create_part(-1, x + sim->rng.between(-3, 3), y + sim->rng.between(-3, 3), PT_FIRE);
+            sim->create_part(-1, x + sim->rng.between(-3, 3), y + sim->rng.between(-3, 3), PT_FIRE);
+            sim->create_part(-1, x + sim->rng.between(-3, 3), y + sim->rng.between(-3, 3), PT_FIRE);
+        }
+        
 	}
 	if (parts[i].type == PT_GRPH)
 	{

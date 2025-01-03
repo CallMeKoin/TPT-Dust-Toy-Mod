@@ -193,7 +193,8 @@ simulation_elem_names = [
 	'LITH',
 	'RSST',
 	'RSSS',
-	'GRPH'
+	'GRPH',
+	'STEL'
 ]
 
 simulation_elem_src = []

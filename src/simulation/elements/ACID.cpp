@@ -84,7 +84,7 @@ static int update(UPDATE_FUNC_ARGS)
 					}
 					else if (rt != PT_CLNE && rt != PT_PCLN && parts[i].life >= 50 && sim->rng.chance(elements[rt].Hardness, 1000))
 					{
-						if (sim->parts_avg(i, ID(r),PT_GLAS)!= PT_GLAS)//GLAS protects stuff from acid
+						if (sim->parts_avg(i, ID(r),PT_GLAS)!= PT_GLAS && sim->rng.chance(1,9))//GLAS protects stuff from acid
 						{
 							float newtemp = ((60.0f-(float)elements[rt].Hardness))*7.0f;
 							if(newtemp < 0){
@@ -97,7 +97,8 @@ static int update(UPDATE_FUNC_ARGS)
 							case PT_LITH:
 								sim->part_change_type(ID(r), x + rx, y + ry, PT_H2);
 								break;
-
+							case PT_STEL:
+								break;
 							default:
 								sim->kill_part(ID(r));
 								break;
